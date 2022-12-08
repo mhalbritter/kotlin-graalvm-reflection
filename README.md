@@ -1,5 +1,23 @@
 # Reflection in Kotlin in native-image
 
+The class `Foo` is defined as follows:
+
+```kotlin
+class Foo {
+    fun a_method1(): A? {
+        return null
+    }
+
+    fun b_method2(): B? {
+        return null
+    }
+}
+
+interface A
+
+interface B
+```
+
 ## Reflection metadata for method is missing
 
 ```kotlin
@@ -23,26 +41,6 @@ Exception in thread "main" kotlin.reflect.jvm.internal.KotlinReflectionInternalE
 if reflection metadata for `Foo.a_method1` is missing.
 
 ## Reflection metadata for some methods in the class are missing
-
-The `Foo` class is defined as follows:
-
-```kotlin
-class Foo {
-    fun a_method1(): A? {
-        return null
-    }
-
-    fun b_method2(): B? {
-        return null
-    }
-}
-
-interface A
-
-interface B
-```
-
-Now let's try some reflection:
 
 ```kotlin
 val javaMethod = Foo::a_method1.javaMethod
