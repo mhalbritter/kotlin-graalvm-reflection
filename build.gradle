@@ -1,0 +1,32 @@
+plugins {
+    id 'application'
+    id 'org.graalvm.buildtools.native' version '0.9.19'
+    id "org.jetbrains.kotlin.jvm" version "1.7.21"
+}
+
+application {
+    mainClass = 'test.MainKt'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework:spring-core:6.0.2'
+    implementation "org.jetbrains.kotlin:kotlin-reflect:1.7.21"
+}
+
+graalvmNative {
+    agent {
+        defaultMode = "standard"
+    }
+    binaries {
+        main {
+            requiredVersion = '22.3'
+        }
+    }
+    metadataRepository {
+        enabled = true
+    }
+}

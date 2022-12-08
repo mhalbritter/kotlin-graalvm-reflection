@@ -1,0 +1,12 @@
+[
+    {
+        "name": "test.Foo",
+        "methods": [
+            {
+                "name": "b_method2",
+                "parameterTypes": [
+                ]
+            }
+        ]
+    }
+]
