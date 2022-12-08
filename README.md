@@ -56,9 +56,10 @@ ResolvableType.forMethodReturnType(javaMethod)
 
 will not work if there is reflection metadata for `Foo.b_method2` but not for `Foo.a_method1`.
 
-The reason is that Kotlin iterates over the methods until it finds the matching one. `a_method1` will be iterated first
-(I assume because of alphabetical sorting), it then tries to inspect it (no idea why, we didn't ask for it) and then it
-will fail with:
+The reason is that Kotlin iterates over the methods until it finds the matching one.
+This code is in `kotlin.reflect.jvm.ReflectJvmMapping.getKotlinFunction(ReflectJvmMapping.kt:136)`.
+`a_method1` will be iterated first (I assume because of alphabetical sorting), it then tries to inspect it (no idea why,
+we didn't ask for it) and then it will fail with:
 
 ```
 Exception in thread "main" java.lang.ClassNotFoundException: test.A
