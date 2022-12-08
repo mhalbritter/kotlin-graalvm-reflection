@@ -42,6 +42,8 @@ interface A
 interface B
 ```
 
+Now let's try some reflection:
+
 ```kotlin
 val javaMethod = Foo::a_method1.javaMethod
 ResolvableType.forMethodReturnType(javaMethod)
