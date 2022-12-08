@@ -92,4 +92,28 @@ Exception in thread "main" java.lang.ClassNotFoundException: test.A
 
 `test.A` is the return type of `a_method1` which is not in the native image.
 
+If metadata is added for `test.A`, it fails with a different exception:
+
+```
+Exception in thread "main" kotlin.reflect.jvm.internal.KotlinReflectionInternalError: Could not compute caller for function: public final fun a_method1(): test.A? defined in test.Foo[DeserializedSimpleFunctionDescriptor@33119311] (member = null)
+        at kotlin.reflect.jvm.internal.KFunctionImpl$caller$2.invoke(KFunctionImpl.kt:88)
+        at kotlin.reflect.jvm.internal.KFunctionImpl$caller$2.invoke(KFunctionImpl.kt:61)
+        at kotlin.reflect.jvm.internal.ReflectProperties$LazyVal.invoke(ReflectProperties.java:63)
+        at kotlin.reflect.jvm.internal.ReflectProperties$Val.getValue(ReflectProperties.java:32)
+        at kotlin.reflect.jvm.internal.KFunctionImpl.getCaller(KFunctionImpl.kt:61)
+        at kotlin.reflect.jvm.ReflectJvmMapping.getJavaMethod(ReflectJvmMapping.kt:63)
+        at kotlin.reflect.jvm.ReflectJvmMapping.getKotlinFunction(ReflectJvmMapping.kt:136)
+        at org.springframework.core.MethodParameter$KotlinDelegate.getGenericReturnType(MethodParameter.java:914)
+        at org.springframework.core.MethodParameter.getGenericParameterType(MethodParameter.java:510)
+        at org.springframework.core.SerializableTypeWrapper$MethodParameterTypeProvider.getType(SerializableTypeWrapper.java:291)
+        at org.springframework.core.SerializableTypeWrapper.forTypeProvider(SerializableTypeWrapper.java:107)
+        at org.springframework.core.ResolvableType.forType(ResolvableType.java:1413)
+        at org.springframework.core.ResolvableType.forMethodParameter(ResolvableType.java:1334)
+        at org.springframework.core.ResolvableType.forMethodParameter(ResolvableType.java:1316)
+        at org.springframework.core.ResolvableType.forMethodParameter(ResolvableType.java:1283)
+        at org.springframework.core.ResolvableType.forMethodReturnType(ResolvableType.java:1228)
+        at test.MainKt.main(Main.kt:12)
+        at test.MainKt.main(Main.kt)
+```
+
 If both methods have metadata, everything is fine.
